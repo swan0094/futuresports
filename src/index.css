@@ -484,6 +484,9 @@ textarea {
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.4);
 }
+.modal.show {
+  display: block;
+}
 .modal-content {
   background-color: #fefefe;
   margin: 40% auto;

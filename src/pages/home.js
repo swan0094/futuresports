@@ -14,14 +14,13 @@ const Home = () => {
   }, []);
 
   const handleCardClick = (videoUrl) => {
-    console.log(videoUrl);
     setCurrentVideoUrl(videoUrl);
     setShowModal(true);
   };
 
   const handleCloseModal = () => {
     setShowModal(false);
-    setCurrentVideoUrl("");
+    setCurrentVideoUrl(null);
   };
 
   return (
