@@ -1,4 +1,24 @@
+import React, { useState, useEffect } from "react";
+import Modal from "../components/modal";
+import fanEngagementData from "../data/fan_engagement.json";
+
 const FanEngagement = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    setData(fanEngagementData);
+  }, []);
+
+  const handleDownload = () => {
+    // Simulate download action
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div className="fan-engagement-card" aria-labelledby="fan-engagement-page">
       <h2>Fan Engagement &amp; Membership Overview</h2>
@@ -13,32 +33,29 @@ const FanEngagement = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>2022</td>
-            <td>500,000</td>
-            <td>2,000</td>
-            <td>$1,800,000</td>
-            <td>500,000</td>
-          </tr>
-          <tr>
-            <td>2023</td>
-            <td>600,000</td>
-            <td>22,000</td>
-            <td>$2,100,000</td>
-            <td>1,200,000</td>
-          </tr>
-          <tr>
-            <td>2024</td>
-            <td>800,000</td>
-            <td>35,500</td>
-            <td>$2,500,000</td>
-            <td>2,500,000</td>
-          </tr>
+          {data.map((row, index) => (
+            <tr key={index}>
+              <td>{row.season}</td>
+              <td>{row.ticketSales.toLocaleString()}</td>
+              <td>{row.fanInteractions.toLocaleString()}</td>
+              <td>${row.merchandiseRevenue.toLocaleString()}</td>
+              <td>{row.videoPlays.toLocaleString()}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
-      <button aria-label="Download the full fan engagement report">
+      <button
+        aria-label="Download the full fan engagement report"
+        onClick={handleDownload}
+      >
         Download Full Report
       </button>
+      <Modal show={showModal}>
+        <p className="highlightable">Downloaded successfully</p>
+        <button onClick={handleCloseModal} className="ok-button">
+          Ok
+        </button>
+      </Modal>
     </div>
   );
 };
